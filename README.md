@@ -30,15 +30,15 @@ fly deploy          # redeploy to mount the volume
 
 ### 4. Update your config
 
-Once your app is live at `https://<your-app>.fly.dev`, edit **`config.js`**:
-
-- Set `serverHost` to `<your-app>.fly.dev:2592`
-- Set `wsProxy` to `wss://<your-app>.fly.dev/ws`
-- Update server name, location, admin info, etc.
+Edit **`config.json`** — set the server name, location, admin info, motd, and game instances. All server settings live in this single file.
 
 Push the changes — Fly auto-redeploys.
 
-### 5. Get listed
+### 5. Customize game instances (optional)
+
+Each entry in the `instances` array configures a separate game mode with its own port and sysdef rules. See the [Server Configuration](https://github.com/neonetrek/client-server/blob/main/HOSTING.md#server-configuration) reference for all options.
+
+### 6. Get listed
 
 Open a PR to [neonetrek/neonetrek.github.io](https://github.com/neonetrek/neonetrek.github.io) adding your server to `servers.json`. Once merged, it appears on all NeoNetrek portals automatically.
 
