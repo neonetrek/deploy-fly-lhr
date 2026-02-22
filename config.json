@@ -48,7 +48,8 @@
         "DEFUPS": 25,
         "MAXUPS": 50,
         "RESETGALAXY": 1,
-        "SELF_RESET": 1
+        "SELF_RESET": 1,
+        "MIN_CARRY_KILLS": 0
       }
     }
   ]
