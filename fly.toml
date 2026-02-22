@@ -4,7 +4,6 @@ primary_region = "lhr"
 [build]
 
 [env]
-  NETREK_PORT = "2592"
   WS_PORT = "3000"
 
 # Persistent volume for player accounts, stats, and game state.
@@ -38,25 +37,6 @@ primary_region = "lhr"
     path = "/health"
     protocol = "http"
     timeout = 2000
-
-# Raw TCP service for native Netrek clients
-[[services]]
-  protocol = "tcp"
-  internal_port = 2592
-
-  [[services.ports]]
-    port = 2592
-    handlers = []
-
-  [services.concurrency]
-    type = "connections"
-    hard_limit = 32
-    soft_limit = 16
-
-  [[services.tcp_checks]]
-    grace_period = "30s"
-    interval = 15000
-    timeout = 5000
 
 [checks]
   [checks.health]
