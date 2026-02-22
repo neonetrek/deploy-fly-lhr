@@ -1,8 +1,5 @@
-# Fly.io deployment config for NeoNetrek
-# 1. Replace "my-neonetrek" with your app name
-# 2. Pick a region: https://fly.io/docs/reference/regions/
-app = "my-neonetrek"
-primary_region = "iad"
+app = "neonetrek-lhr"
+primary_region = "lhr"
 
 [build]
 

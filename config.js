@@ -1,16 +1,15 @@
 /**
- * Portal configuration for your NeoNetrek server.
- * Edit these values to match your deployment.
+ * NeoNetrek London Server — Portal Configuration
  */
 window.NEONETREK_PORTAL = {
-  serverName: "My NeoNetrek Server",
-  serverTagline: "A community Netrek server",
-  serverHost: "my-neonetrek.fly.dev:2592",
-  wsProxy: "wss://my-neonetrek.fly.dev/ws",
-  serverLocation: "Ashburn, US",
-  adminName: "YourName",
-  adminContact: "you@example.com",
-  motd: "<p>Welcome aboard, pilot!</p>",
+  serverName: "NeoNetrek London",
+  serverTagline: "The original NeoNetrek server. Welcome, pilot.",
+  serverHost: "neonetrek-lhr.fly.dev:2592",
+  wsProxy: "wss://neonetrek-lhr.fly.dev/ws",
+  serverLocation: "London, UK",
+  adminName: "NeoNetrek Team",
+  adminContact: "https://github.com/neonetrek",
+  motd: "<p>Welcome to the London server — the first NeoNetrek deployment. Born from memories of the Sun Lab at UUJ Jordanstown, class of '94–'98.</p>",
   rules: [
     "Be respectful to other players",
     "No automated bots without permission",
