@@ -1,6 +1,7 @@
 # Fly.io deployment config for NeoNetrek
 # 1. Replace "my-neonetrek" with your app name
 # 2. Pick a region: https://fly.io/docs/reference/regions/
+# 3. Create the volume: fly volumes create netrek_data --region <region> --size 1
 app = "my-neonetrek"
 primary_region = "iad"
 
@@ -9,6 +10,12 @@ primary_region = "iad"
 [env]
   NETREK_PORT = "2592"
   WS_PORT = "3000"
+
+# Persistent volume for player accounts, stats, and game state.
+# Data lives in /opt/netrek/var (players, players.index, scores, planets, etc.)
+[mounts]
+  source = "netrek_data"
+  destination = "/opt/netrek/var"
 
 # HTTP service: web client + WebSocket proxy
 [[services]]

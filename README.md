@@ -19,6 +19,13 @@ Click **Fork** on GitHub.
 ```bash
 fly auth login
 fly launch          # say Yes to use the existing fly.toml
+
+# Create a volume for persistent player data (accounts, stats, game state)
+fly volumes create netrek_data --region <your-region> --size 1
+
+# Scale to 1 machine (volumes can only attach to one machine)
+fly scale count 1
+
 fly deploy
 ```
 
@@ -29,6 +36,20 @@ Visit `https://<your-app>.fly.dev` — you should see the portal. Click **Play N
 Open a PR to [neonetrek/neonetrek.github.io](https://github.com/neonetrek/neonetrek.github.io) adding your server to `servers.json`. Once merged, it appears on all NeoNetrek portals automatically.
 
 See [HOSTING.md](https://github.com/neonetrek/client-server/blob/main/HOSTING.md) for field reference and listing guidelines.
+
+## Persistent data
+
+The volume mounted at `/opt/netrek/var` stores:
+
+| File | Description |
+|------|-------------|
+| `players` | Player accounts and lifetime stats (binary flat file) |
+| `players.index` | GDBM index for fast player lookups by name |
+| `scores` | Player rankings |
+| `planets` | Planet ownership state |
+| `global` | Global server state |
+
+This data survives deploys and restarts. Back up with `fly ssh console -C "tar czf - /opt/netrek/var" > backup.tar.gz`.
 
 ## Tips
 
