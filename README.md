@@ -8,30 +8,37 @@ Deploy your own NeoNetrek server on [Fly.io](https://fly.io) in minutes. No comp
 
 Click **Fork** on GitHub.
 
-### 2. Edit your config
+### 2. Deploy on Fly.io
 
-**`config.js`** — set your server name, location, admin info, and message of the day.
-
-**`fly.toml`** — change `app` to your chosen app name and `primary_region` to a [Fly region](https://fly.io/docs/reference/regions/) near your players.
-
-### 3. Deploy
+Edit **`fly.toml`** — change `app` to your chosen app name and `primary_region` to a [Fly region](https://fly.io/docs/reference/regions/) near your players.
 
 ```bash
 fly auth login
 fly launch          # say Yes to use the existing fly.toml
-
-# Create a volume for persistent player data (accounts, stats, game state)
-fly volumes create netrek_data --region <your-region> --size 1
-
-# Scale to 1 machine (volumes can only attach to one machine)
-fly scale count 1
-
 fly deploy
 ```
 
-Visit `https://<your-app>.fly.dev` — you should see the portal. Click **Play Now** to launch the game.
+### 3. Add persistent storage
 
-### 4. Get listed
+Create a volume for player accounts, stats, and game state so they survive redeploys and restarts:
+
+```bash
+fly volumes create netrek_data --region <your-region> --size 1
+fly scale count 1   # volumes can only attach to one machine
+fly deploy          # redeploy to mount the volume
+```
+
+### 4. Update your config
+
+Once your app is live at `https://<your-app>.fly.dev`, edit **`config.js`**:
+
+- Set `serverHost` to `<your-app>.fly.dev:2592`
+- Set `wsProxy` to `wss://<your-app>.fly.dev/ws`
+- Update server name, location, admin info, etc.
+
+Push the changes — Fly auto-redeploys.
+
+### 5. Get listed
 
 Open a PR to [neonetrek/neonetrek.github.io](https://github.com/neonetrek/neonetrek.github.io) adding your server to `servers.json`. Once merged, it appears on all NeoNetrek portals automatically.
 
@@ -49,7 +56,9 @@ The volume mounted at `/opt/netrek/var` stores:
 | `planets` | Planet ownership state |
 | `global` | Global server state |
 
-This data survives deploys and restarts. Back up with `fly ssh console -C "tar czf - /opt/netrek/var" > backup.tar.gz`.
+This data survives deploys and restarts. Without a volume, all player data is lost on every redeploy.
+
+Back up with `fly ssh console -C "tar czf - /opt/netrek/var" > backup.tar.gz`.
 
 ## Tips
 
