@@ -62,7 +62,6 @@ Back up with `fly ssh console -C "tar czf - /opt/netrek/var" > backup.tar.gz`.
 
 ## Tips
 
-- Scale up for more players: `fly scale vm shared-cpu-2x`
 - Monitor: `fly logs`, `fly status`
 - Custom domain: `fly certs add your.domain.com`
 - Pin to a specific release: change `FROM ghcr.io/neonetrek/client-server:main` to `:v1.0.0` in the Dockerfile.
